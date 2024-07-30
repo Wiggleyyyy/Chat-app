@@ -33,7 +33,11 @@ coverage
 build/Release
 
 # Dependency directories
+<<<<<<< HEAD
+node_modules/electron/
+=======
 node_modules/
+>>>>>>> parent of f5c97d6 (working on database connection)
 jspm_packages/
 
 # TypeScript v1 declaration files
