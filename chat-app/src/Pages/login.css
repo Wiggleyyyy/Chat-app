@@ -1,0 +1,68 @@
+:root {
+    --Dark-primary-background-color: #1c2931;
+    --Dark-secondary-background-color: #47555b;
+    --Primary-font-color: #;
+    --Primay-accent-color: #eb7b1b;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--Dark-primary-background-color);
+}
+
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90dvh;
+    flex-direction: column;
+    border-radius: 1.14vh;
+}
+
+.signup-container .container-header {
+    margin-top: -20vh;
+    border: 2px solid var(--Primay-accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 12.5%;
+    border-radius: 1.14vh;
+    background-color: var(--Dark-secondary-background-color);
+}
+
+.signup-container .container-content {
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid var(--Primay-accent-color);
+    width: 60%;
+    height: 30%;
+    border-radius: 1.14vh;
+    background-color: var(--Dark-secondary-background-color);
+}
+
+.signup-container .container-content .flex-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 2.5vh;
+}
+
+.signup-container .container-content .flex-container .input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+}
+
+.signup-container .container-content .flex-container .input-group label {
+    font-size: 2vh;
+    color: var(--Primary-font-color);
+}
