@@ -1,0 +1,321 @@
+@font-face {
+    font-family: Cascadia;
+    src: url(../Assets/Fonts/Cascadia.ttf);
+}
+
+:root {
+    --Primary-background-color: #1f2d43;
+    --Secondary-background-color: #bab9ac;
+    --Inactive-background-color: #adac9f;
+    --Highlight-background-color: #e0dfcf;
+    --Primary-font-color: #20241c;
+    --Primay-accent-color: #6c785f;
+    --Secondary-accent-color: #eb373d;
+    --Default-font: Cascadia;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--Primary-background-color);
+}
+
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90dvh;
+    flex-direction: column;
+    border-radius: 1.14vh;
+}
+
+.signup-container .container-header{
+    margin-top: -10vh;
+    border: 2px solid var(--Primay-accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 12.5%;
+    border-radius: 1.14vh;
+    background-color: var(--Secondary-background-color);
+}
+
+.signup-container .container-header h1 {
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+}
+
+.signup-container .container-content {
+    margin-top: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid var(--Primay-accent-color);
+    width: 60%;
+    height: 50%;
+    border-radius: 1.14vh;
+    background-color: var(--Secondary-background-color);
+}
+
+.signup-container .container-content .flex-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 2.5vh;
+    margin-left: 7vh;
+}
+
+.signup-container .container-content .flex-container .input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+    width: 90%;
+}
+
+.signup-container .container-content .flex-container .input-group label {
+    font-size: 2vh;
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+    font-size: 3vh;
+}
+
+.signup-container .container-content .flex-container .input-group input,
+.signup-container .container-content .flex-container .input-group select {
+    font-size: 2vh;
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+    background-color: var(--Inactive-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    border-radius: 1.14vh;
+    transition: ease 0.3s;
+    padding: 0.5vh;
+    width: 90%;
+}
+
+
+.signup-container .container-content .flex-container .input-group input:hover,
+.signup-container .container-content .flex-container .input-group select:hover {
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+}
+
+
+.signup-container .container-content .flex-container .input-group input:focus,
+.signup-container .container-content .flex-container .input-group select:focus {
+    border: none;
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+    outline: none;
+}
+
+.signup-container .container-content button {
+    background-color: var(--Inactive-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    padding: 1vh;
+    margin-top: 5vh;
+    font-size: 2vh;
+    font-family: var(--Default-font);
+    border-radius: 1.14vh;
+    cursor: pointer;
+    transition: ease 0.3s;
+    margin-top: -1vh;
+}
+
+
+.signup-container .container-content button:hover{
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.signup-container .container-content button:active{
+    transform: scale(0.95);
+}
+
+.signup-container .link-button {
+    margin-top: 2vh;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: var(--Primay-accent-color);
+    font-size: 2vh;
+    font-family: var(--Default-font);
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .signup-container .container-content .flex-container {
+        flex-direction: column;
+    }
+
+    .signup-container .container-content {
+        height: 75%;
+    }
+
+    .signup-container .container-content button {
+        margin-bottom: 1.5vh;
+    }
+
+    .signup-container .container-header {
+        margin-top: 5vh;
+    }
+
+    .signup-container .link-button {
+        margin-bottom: 0.5vh;
+    }
+}
+
+.signin-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90dvh;
+    flex-direction: column;
+    border-radius: 1.14vh;
+}
+
+.signin-container .header-container{
+    margin-top: -10vh;
+    border: 2px solid var(--Primay-accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 12.5%;
+    border-radius: 1.14vh;
+    background-color: var(--Secondary-background-color);
+}
+
+.signin-container .header-container h1 {
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+}
+
+.signin-container .content-container {
+    margin-top: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid var(--Primay-accent-color);
+    width: 60%;
+    height: 50%;
+    border-radius: 1.14vh;
+    background-color: var(--Secondary-background-color);
+}
+
+.signin-container .content-container .flex-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 2.5vh;
+    margin-left: 7vh;
+}
+
+.signin-container .content-container .flex-container .input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+    width: 90%;
+}
+
+.signin-container .content-container .flex-container .input-group label {
+    font-size: 2vh;
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+    font-size: 3vh;
+}
+
+.signin-container .content-container .flex-container .input-group input,
+.signin-container .content-container .flex-container .input-group select {
+    font-size: 2vh;
+    color: var(--Primary-font-color);
+    font-family: var(--Default-font);
+    background-color: var(--Inactive-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    border-radius: 1.14vh;
+    transition: ease 0.3s;
+    padding: 0.5vh;
+    width: 90%;
+}
+
+
+.signin-container .content-container .flex-container .input-group input:hover,
+.signin-container .content-container .flex-container .input-group select:hover {
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+}
+
+
+.signin-container .content-container .flex-container .input-group input:focus,
+.signin-container .content-container .flex-container .input-group select:focus {
+    border: none;
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+    outline: none;
+}
+
+.signin-container .content-container button {
+    background-color: var(--Inactive-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    padding: 1vh;
+    margin-top: 5vh;
+    font-size: 2vh;
+    font-family: var(--Default-font);
+    border-radius: 1.14vh;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+
+.signin-container .content-container button:hover{
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.signin-container .content-container button:active{
+    transform: scale(0.95);
+}
+
+.signin-container .link-button {
+    margin-top: 2vh;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: var(--Primay-accent-color);
+    font-size: 2vh;
+    font-family: var(--Default-font);
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .signin-container .content-container .flex-container {
+        flex-direction: column;
+    }
+
+    .signin-container .content-container {
+        height: 75%;
+    }
+
+    .signin-container .content-container button {
+        margin-bottom: 1.5vh;
+    }
+
+    .signin-container .header-container {
+        margin-top: 5vh;
+    }
+
+    .signin-container .link-button {
+        margin-bottom: 0.5vh;
+    }
+}
