@@ -29,7 +29,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1",
-    "mariadb": "^3.3.1"
+    "electron-squirrel-startup": "^1.0.1"
   }
 }
