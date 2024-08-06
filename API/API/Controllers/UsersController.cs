@@ -14,8 +14,14 @@ namespace API.Controllers
         [HttpPost(Name = "SignUp")]
         public async Task<IActionResult> Post([FromBody] Users user)
         {
+            //Console.WriteLine(username);
+            //return StatusCode(200, "test")
+
+            user.created_at = DateTime.Now;
+
             if (String.IsNullOrEmpty(user.first_name) || String.IsNullOrEmpty(user.last_name) || String.IsNullOrEmpty(user.country) || String.IsNullOrEmpty(user.date_of_birth.ToString()) || String.IsNullOrEmpty(user.username) || String.IsNullOrEmpty(user.email) || String.IsNullOrEmpty(user.private_encrypted_password) || String.IsNullOrEmpty(user.user_tag))
             {
+                Console.WriteLine("missing data");
                 return BadRequest("Invalid or missing data.");
             }
 
@@ -23,28 +29,14 @@ namespace API.Controllers
 
             if (!signUpIsSuccess)
             {
+                Console.WriteLine("couldnt create user");
+                Console.WriteLine(user.ToString());
                 return BadRequest("Couldn't create user.");
             }
 
             return StatusCode(200, "Created account.");
         }
 
-        [HttpGet(Name = "SignIn")]
-        public IActionResult Get([FromBody] Users user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid or missing data.");
-            }
 
-            bool signInIsSuccess = DB.signIn(user);
-
-            if (!signInIsSuccess)
-            {
-                return BadRequest("Couldn't create user.");
-            }
-
-            return StatusCode(200, "Logged in.");
-        }
     }
 }

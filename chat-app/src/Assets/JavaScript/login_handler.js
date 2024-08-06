@@ -8,9 +8,9 @@ function User(first_name, last_name, country, date_of_birth, username, email, pu
     this.date_of_birth = date_of_birth;
     this.username = username;
     this.email = email;
-    this.encrypted_password = null;
+    this.private_encrypted_password = null;
     this.public_key = public_key;
-    this.created_at = created_at;
+    this.created_at = null;
     this.user_tag = user_tag;
 }
 
@@ -36,10 +36,10 @@ async function generateRandomKey() {
     const chars = "0123456789abcdef";
     let key;
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 12; i++) {
         key += chars[Math.random(0, chars.length + 1)];
     }
-    return key;
+    return key.toString();
 }
 
 function stringToArrayBuffer(string) {
@@ -102,7 +102,7 @@ async function encryptPassword(input, keyString) {
     combinedBuffer.set(iv, salt.byteLength);
     combinedBuffer.set(new Uint8Array(encrypted), salt.byteLength + iv.byteLength);
 
-    return arrayBufferToBase64(combinedBuffer.buffer);
+    return arrayBufferToBase64(combinedBuffer.buffer).toString();
 }
 
 async function decryptPassword() {
@@ -154,8 +154,7 @@ async function signUp() {
             formattedDate,
             `@${usernameInput}`
         );
-
-        user.encrypted_password = await encryptPassword(passwordInput, localStorage.getItem("public_key"));
+        user.private_encrypted_password = await encryptPassword(passwordInput, localStorage.getItem("public_key"));
 
         try {
             const apiUrl = `${baseurl}/Users`;
@@ -195,7 +194,7 @@ async function signUp() {
     }
 }
 
-function signIn() {
+async function signIn() {
     const usernameInput = document.getElementById("username_input").value;
     const passwordInput = document.getElementById("password_input").value;
     
@@ -216,10 +215,12 @@ function signIn() {
             const response = await fetch(apiURL,{
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify()
+                body: JSON.stringify(),
             }); 
+        } catch (error) {
+            console.error("There was a problem signing in: ", error);
         }
     } else {
         alert("Error, missing required fields!");

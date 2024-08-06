@@ -12,7 +12,7 @@ namespace API
         public string username { get; set; }
         public string email { get; set; }
         public string private_encrypted_password { get; set; }
-        public string public_encrypted_password { get; set; }
+        public string? public_encrypted_password { get; set; }
         public string public_key { get; set; }
         public DateTime created_at { get; set; }
         public string user_tag { get; set; }

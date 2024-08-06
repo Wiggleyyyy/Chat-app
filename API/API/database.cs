@@ -128,7 +128,16 @@ namespace API
         {
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Encoding.UTF8.GetBytes(key.Substring(0, 32));
+                try
+                {
+                    byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+                    aesAlg.Key = keyBytes;
+                    //aesAlg.Key = GetAesKey(key, 32);
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error);
+                }
                 aesAlg.GenerateIV();
 
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
