@@ -1,8 +1,7 @@
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
-
+using System.Security.Cryptography.X509Certifi
 namespace API.Controllers
 {
     [ApiController]
@@ -19,7 +18,7 @@ namespace API.Controllers
 
             user.created_at = DateTime.Now;
 
-            if (String.IsNullOrEmpty(user.first_name) || String.IsNullOrEmpty(user.last_name) || String.IsNullOrEmpty(user.country) || String.IsNullOrEmpty(user.date_of_birth.ToString()) || String.IsNullOrEmpty(user.username) || String.IsNullOrEmpty(user.email) || String.IsNullOrEmpty(user.private_encrypted_password) || String.IsNullOrEmpty(user.user_tag))
+            if (String.IsNullOrEmpty(user.first_name) || String.IsNullOrEmpty(user.last_name) || String.IsNullOrEmpty(user.country) || String.IsNullOrEmpty(user.date_of_birth.ToString()) || String.IsNullOrEmpty(user.username) || String.IsNullOrEmpty(user.email) || String.IsNullOrEmpty(user.hashed_password) || String.IsNullOrEmpty(user.user_tag))
             {
                 Console.WriteLine("missing data");
                 return BadRequest("Invalid or missing data.");
@@ -37,6 +36,16 @@ namespace API.Controllers
             return StatusCode(200, "Created account.");
         }
 
+        [HttpGet(Name = "SignIn")]
+        public async IEnumerable<Users> Get([FromQuery] string username, [FromQuery] string hashed_password)
+        {
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(hashed_password))
+            {
+                Console.WriteLine("Missing or invalid data");
+                return BadRequest("Missing or invalid data.");
+            }
 
+            }
+        }
     }
 }

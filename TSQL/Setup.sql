@@ -6,14 +6,14 @@ use Chat_app;
 
 create table Users (
 	user_id int primary key identity(1,1),
+	user_tag varchar(255) not null,
 	first_name varchar(255) not null,
 	last_name varchar(255) not null,
 	country varchar(255),
 	date_of_birth date,
 	username varchar(255) not null,
 	email varchar(255) not null,
-	encrypted_password varchar(255) not null,
-	public_key varchar(255) not null,
+	hashed_password varchar(255) not null,
 	created_at datetime not null,
 )
 
@@ -41,10 +41,35 @@ create table Friendships (
 
 create table Chats (
 	chat_id int primary key identity(1,1),
-	chat text not null,
+	from_user int not null,
+	to_user int not null,
 	pinned tinyint not null,
 	user_id int not null,	
 	created_at datetime not null,
 
 	foreign key (user_id) references Users(user_id),
+	foreign key (from_user) references Users(user_id),
+	foreign key (to_user) references Users(user_id),
+)
+
+INSERT INTO Users(
+    user_id,
+	first_name,
+	last_name,
+	country,
+	date_of_birth,
+	username,
+	email,
+	hashed_password,
+	created_at,
+)
+values (
+    'TEST',
+    'TEST',
+    'dk',
+    TO_DATE('18/06/12', 'DD/MM/YYYY'),
+    'TEST',
+    'TEST@gmail.com',
+    'vhvhjen4yuet67iw7nivyvn4iwru',
+    '07082024 10:58:09 AM',
 )
