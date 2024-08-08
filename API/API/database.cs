@@ -14,7 +14,7 @@ namespace API
         //Aes aes = Aes.Create();
         //byte[] ciphertext;
 
-        public bool signIn(string username, string hashed_password)
+        public Users signIn(string username, string hashed_password)
         {
             try
             {
@@ -32,17 +32,37 @@ namespace API
                 }
 
                 // Check for user
-                string query = "SELECT * FROM Users WHERE email = @username AND password = @password OR user_tag = @user_tag AND password = @password";
+                string query = "SELECT * FROM Users WHERE email = @email AND hashed_password = @password OR user_tag = @user_tag AND hashed_password = @password";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@password", hashed_password);
                 command.Parameters.AddWithValue("@user_tag", username);
                 SqlDataReader reader = command.ExecuteReader();
-                bool hasRows = reader.HasRows;
+
+                Users user = new Users();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        user.user_id = reader.GetInt32(reader.GetOrdinal("user_id"));
+                        user.user_tag = reader.GetString(reader.GetOrdinal("user_tag"));
+                        user.first_name = reader.GetString(reader.GetOrdinal("first_name"));
+                        user.last_name = reader.GetString(reader.GetOrdinal("last_name"));
+                        user.country = reader.GetString(reader.GetOrdinal("country"));
+                        user.date_of_birth = reader.GetDateTime(reader.GetOrdinal("date_of_birth")); //Maybe error
+                        user.username = reader.GetString(reader.GetOrdinal("username"));
+                        user.email = reader.GetString(reader.GetOrdinal("email"));
+                        user.hashed_password = "Hidden";
+                        user.created_at = reader.GetDateTime(reader.GetOrdinal("created_at")); // Maybe error
+
+                        break;
+                    }
+                }
 
                 connection.Close();
 
-                return hasRows;
+                return user;
             }
             catch (Exception ex)
             {
@@ -53,7 +73,7 @@ namespace API
                     connection.Close();
                 }
 
-                return false;
+                return null;
             }
         }
 
@@ -96,10 +116,7 @@ namespace API
                 }
                 command.Parameters.AddWithValue("@user_tag", user.user_tag);
 
-                Console.WriteLine("TEST");
                 int rowsAffected = command.ExecuteNonQuery();
-
-                Console.WriteLine("ran command again");
 
                 connection.Close();
 
@@ -107,12 +124,10 @@ namespace API
                 {
                     Console.WriteLine("created account");
 
-                    // Created
                     return true;
                 }
                 else
                 {
-                    // Couldnt create
                     return false;
                 }
             }
@@ -177,39 +192,39 @@ namespace API
 
         #endregion
 
-        public bool sendMessage(Chats chat)
-        {
-            try
-            {
-                connection = new SqlConnection(connectionString);
-                connection.Open();
-                Console.WriteLine("connection created");
+        //public bool sendMessage(Chats chat)
+        //{
+        //    try
+        //    {
+        //        connection = new SqlConnection(connectionString);
+        //        connection.Open();
+        //        Console.WriteLine("connection created");
 
-                string query = "INSERT INTO Chats (chat, pinned, from_user_id, to_user_id, created_at) VALUES (@chat, @pinned, @from_user_id, @to_user_id, @created_at)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@chat", chat.text);
-                command.Parameters.AddWithValue("@pinned", chat.pinned);
-                command.Parameters.AddWithValue("@from_user_id", chat.from_user_id);
-                command.Parameters.AddWithValue("@to_user_id", chat.to_user_id);
-                command.Parameters.AddWithValue("@created_at", chat.created_at);
-                int affected = command.ExecuteNonQuery();
+        //        string query = "INSERT INTO Chats (chat, pinned, from_user_id, to_user_id, created_at) VALUES (@chat, @pinned, @from_user_id, @to_user_id, @created_at)";
+        //        SqlCommand command = new SqlCommand(query, connection);
+        //        command.Parameters.AddWithValue("@chat", chat.text);
+        //        command.Parameters.AddWithValue("@pinned", chat.pinned);
+        //        command.Parameters.AddWithValue("@from_user_id", chat.from_user_id);
+        //        command.Parameters.AddWithValue("@to_user_id", chat.to_user_id);
+        //        command.Parameters.AddWithValue("@created_at", chat.created_at);
+        //        int affected = command.ExecuteNonQuery();
 
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Couldnt create database connection");
-                if (connection.State != System.Data.ConnectionState.Closed)
-                {
-                    connection.Close();
-                }
-                return false;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Couldnt create database connection");
+        //        if (connection.State != System.Data.ConnectionState.Closed)
+        //        {
+        //            connection.Close();
+        //        }
+        //        return false;
+        //    }
+        //}
 
-        public List<Chats> getMessagesBetweenUsers(int userid_1, int userid_2)
-        {
+        //public List<Chats> getMessagesBetweenUsers(int userid_1, int userid_2)
+        //{
 
-        }
+        //}
     }
 }

@@ -8,7 +8,7 @@ function User(first_name, last_name, country, date_of_birth, username, email, /*
     this.username = username;
     this.email = email;
     this.hashed_password = null;
-    // this.public_key = public_key;
+    // this.public_key = public_key; 
     this.user_tag = user_tag;
 }
 // #region oldCode
@@ -244,7 +244,7 @@ async function signIn() {
     const usernameInput = document.getElementById("username_input").value;
     const passwordInput = document.getElementById("password_input").value;
     
-    const user = new User();
+    var user = new User();
     if (usernameInput.includes("@")){
         user.email = usernameInput;
     }
@@ -252,7 +252,7 @@ async function signIn() {
         user.username = usernameInput;
     }
 
-    user.hashed_password = hashPassword(passwordInput);
+    user.hashed_password = await hashPassword(passwordInput);
 
     // user.encrypted_password = encryptPassword(passwordInput, localStorage.getItem("private_key"));
 
@@ -261,15 +261,21 @@ async function signIn() {
 
         try {
             const response = await fetch(apiURL,{
-                method: "POST",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
             }); 
 
-            
+            const response_data = await response.json();
+            user = response_data[0];
+            console.log(user);
+
+            sessionStorage.setItem("user_tag", user.user_tag);
+            window.location.href = "/chat-app/src/index.html";
         } catch (error) {
             console.error("There was a problem signing in: ", error);
+            alert("Error signing in");
         }
     } else {
         alert("Error, missing required fields!");

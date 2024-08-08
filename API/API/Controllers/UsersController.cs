@@ -1,7 +1,7 @@
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certifi
+using System.Security.Cryptography.X509Certificates;
 namespace API.Controllers
 {
     [ApiController]
@@ -37,14 +37,31 @@ namespace API.Controllers
         }
 
         [HttpGet(Name = "SignIn")]
-        public async IEnumerable<Users> Get([FromQuery] string username, [FromQuery] string hashed_password)
+        public async Task<ActionResult<IEnumerable<Users>>> Get([FromQuery] string username, [FromQuery] string hashed_password)
         {
-            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(hashed_password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(hashed_password))
             {
                 Console.WriteLine("Missing or invalid data");
                 return BadRequest("Missing or invalid data.");
             }
 
+            try
+            {
+                Users user = DB.signIn(username, hashed_password);
+
+                if (user == null)
+                {
+                    Console.WriteLine("Error getting user data");
+                    return BadRequest("Error getting user data");
+                }
+
+                List<Users> userList = new List<Users> { user };
+                return Ok(userList);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception occurred: " + ex.Message);
+                return StatusCode(500, "Internal server error");
             }
         }
     }
