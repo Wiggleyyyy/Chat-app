@@ -3,20 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./test_home.css">
+    <link rel="stylesheet" href="./Assets/Components/Toast/toasts.css">
+    <script src="./Assets/JavaScript/home_handler.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <title>Chat app | Home</title>
 </head>
 <body>
-    <div class="side-bar">
-        <div class="actions">
-
-        </div>
-        <div class="friends">
-
-        </div>
-        <div class="profile">
-
+    <div class="modal" id="modal_popup">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="content-header">
+                    <i class="fa-solid fa-user-group"></i>
+                    <h1>Add friend</h1>
+                    <button onclick="hide_modal()"><i class="fa-solid fa-close"></i></button>
+                </div>
+                <div class="content-content">
+                    <input id="friend_usertag_input" type="text" placeholder="@user tag">
+                    <button onclick="sendFriendRequest()">Send friend request</button>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <div class="side-bar">
+        <div class="actions">
+            <div class="input-group">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="search for friend...">
+            </div>
+            <button onclick="show_modal()"><i class="fa-solid fa-user-group"></i>Add friend <i class="filler"></i></button>
+        </div>
+        <div class="friends">
+            <ul id="friends-list">
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+                <li onclick="" id="">
+                    <div class="friend">
+                        <i class="fa-solid fa-user"></i>
+                        <h1 id="friend_username">[USERNAME]</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="profile">
+            <div class="user">
+                <i class="fa-solid fa-user"></i>
+                <h1 id="self_username">[USERNAME]</h1>
+            </div>
+            <nav>
+                <button onclick="copyTag()">Copy tag</button>
+                <a href=""><i class="fa-solid fa-gear"></i></a>
+            </nav>
+        </div>
+    </div>
+
+    <main>
+        <div class="top-bar">
+            <div class="current-user">
+                <i class="fa-solid fa-user"></i>
+                <div class="information">
+                    <h1>[USERNAME]</h1>
+                    <p>[USER_TAG]</p>
+                </div>
+            </div>
+            <div class="stats">
+                <h2>Friends since: [DATE]</h2>
+                <h2>Messages sent: [COUNT]</h2>
+            </div>
+        </div>
+        <div class="current-chat">
+            <ul>
+                <li>
+                    <div class="message" id="from_message">                        <i class="fa-solid fa-user"></i>
+                        <div class="information">
+                            <div class="user-info">
+                                <h2>[USERNAME 1]</h2>
+                                <p>[DATE]</p>
+                            </div>
+                            <p class="message-text">[MESSAGE]</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="message" id="from_message">
+                        <i class="fa-solid fa-user"></i>
+                        <div class="information">
+                            <div class="user-info">
+                                <h2>[USERNAME 2]</h2>
+                                <p>[DATE]</p>
+                            </div>
+                            <p class="message-text">[LONGER MESSAGE]</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="message-actions">
+            <div class="input-group">
+                <input type="text" placeholder="message...">
+                <button>Send</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="./Assets/JavaScript/home_handler.js"></script>
+    <script src="./Assets/JavaScript/popup_handler.js"></script>
+    <script src="./Assets/JavaScript/friendship_handler.js"></script>
+    <script src="./Assets/Components/Toast/toasts.js"></script>
 </body>
 </html>

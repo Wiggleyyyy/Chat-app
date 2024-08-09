@@ -1,4 +1,5 @@
-﻿using Swashbuckle.AspNetCore.SwaggerGen;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -56,6 +57,7 @@ namespace API
                         user.hashed_password = "Hidden";
                         user.created_at = reader.GetDateTime(reader.GetOrdinal("created_at")); // Maybe error
 
+                        reader.Close();
                         break;
                     }
                 }
@@ -191,6 +193,186 @@ namespace API
         //}
 
         #endregion
+
+        public bool acceptFriendRequest(string self_user_tag, string other_user_tag)
+        {
+            try
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+
+                //Get user IDs
+                int user1_ID = 0;
+                int user2_ID = 0;
+
+                string query = $"SELECT * FROM Users WHERE user_tag = {self_user_tag}";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user1_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                query = $"SELECT * FROM Users WHERE user_tag = {other_user_tag}";
+                command = new SqlCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user2_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                Friendships friendShip = new Friendships();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+                return false;
+            }
+        }
+
+        public bool sendFriendRequst(string self_user_tag, string other_user_tag)
+        {
+            try
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+
+                Friendships friendShip = new Friendships();
+
+                //Get user IDs first
+                int user1_ID = 0;
+                int user2_ID = 0;
+
+                string query = $"SELECT * FROM Users WHERE user_tag = {self_user_tag}";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user1_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                query = $"SELECT * FROM Users WHERE user_tag = {other_user_tag}";
+                command = new SqlCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user2_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                friendShip.user_1_id = user1_ID;
+                friendShip.user_2_id = user2_ID;
+                friendShip.status_id = 2;
+                friendShip.created_at = DateTime.Now;
+
+                query = "INSER INTO Friendships(user_1_id, user_2_id, status_id, created_at) VALUES(@user_1_id, @user_2_id, @status_id, @created_at)";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@user_1_id", friendShip.user_1_id);
+                command.Parameters.AddWithValue("@user_2_id", friendShip.user_2_id);
+                command.Parameters.AddWithValue("@status_id", friendShip.status_id);
+                command.Parameters.AddWithValue("@created_at", friendShip.created_at);
+                int rowsAffected = (int)command.ExecuteNonQuery();
+
+                connection.Close();
+
+                if (rowsAffected > 0)
+                {
+                    //return true if inserted
+                    return true;
+                }
+                else
+                {
+                    //return false if not inserted
+                    return false;
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                
+                if (connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+
+                return false;
+            }
+        }
+
+        public bool checkForFriendRequest(string self_user_tag, string other_user_tag)
+        {
+            try
+            {
+                connection = new SqlConnection(connectionString);
+                connection.Open();
+
+                //Get user IDs first
+                int user1_ID = 0;
+                int user2_ID = 0;
+
+                string query = $"SELECT * FROM Users WHERE user_tag = {self_user_tag}";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user1_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                query = $"SELECT * FROM Users WHERE user_tag = {other_user_tag}";
+                command = new SqlCommand(query, connection);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user2_ID = reader.GetInt32(reader.GetOrdinal("user_id"));
+                    reader.Close();
+                    break;
+                }
+
+                // Check for existing friendrequest
+                query = "SELECT COUNT(*) FROM Friendships WHERE user_1_id = @user_1_id AND user_2_id = @user_2_id OR user_1_id = @user_2_id AND user_2_id = @user_1_id";
+                command = new SqlCommand(query, connection);
+                int existingFriendRequestsCount = (int)command.ExecuteScalar();
+
+                connection.Close();
+
+                if (existingFriendRequestsCount > 0)
+                {
+                    //return true if exists
+                    return true;
+                }
+                else
+                {
+                    //return false if exists
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                if (connection.State != System.Data.ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+
+                return false;
+            }
+        }
 
         //public bool sendMessage(Chats chat)
         //{

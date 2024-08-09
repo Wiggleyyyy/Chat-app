@@ -3,6 +3,16 @@
     src: url(./Assets/Fonts/Cascadia.ttf);
 }
 
+::-webkit-scrollbar {
+    width: 1vh;
+    border-radius: 1.14vh;
+    padding: 1vh;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--Highlight-background-color); 
+} 
+
 :root  {
     --Primary-background-color: #1f2d43;
     --Secondary-background-color: #bab9ac;
@@ -22,6 +32,9 @@
 
 body {
     background-color: var(--Primary-background-color);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
 }
 
 .side-bar {
@@ -36,16 +49,482 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 20%;
+    height: 15%;
     border-bottom: 0.75vh solid var(--Primay-accent-color);
+    align-items: center;
+    justify-content: center;
+}
+
+.side-bar .actions .input-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1vh;
+    margin-bottom: 1.5vh;
+    padding: 1vh;
+}
+
+.side-bar .actions .input-group i {
+    color: var(--Inactive-background-color);
+    font-size: 3.5vh;
+    margin-right: 0.75vh;
+}
+
+.side-bar .actions .input-group input {
+    font-size: 2vh;
+    padding: 1vh;
+    border-radius: 1.14vh;
+    background-color: var(--Inactive-background-color);
+    color: var(--Primary-font-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease ;
+}
+
+.side-bar .actions .input-group input:hover,
+.side-bar .actions .input-group input:focus {
+    border: none;
+    outline: none;
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar .actions button {
+    width: 85%;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    border-radius: 1.14vh;
+    padding: 1vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--Inactive-background-color);
+    color: var(--Primary-font-color);
+    font-size: 2vh;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.side-bar .actions button:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar .actions button:active {
+    transform: scale(0.98);
 }
 
 .side-bar .friends {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 70%;
+}
+
+.side-bar .friends ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.side-bar .friends ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-bar .friends ul li .friend {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--Inactive-background-color);
+    padding: 1vh;
+    margin-top: 2vh;
+    width: 85%;
+    border-radius: 1.14vh;
+    align-items: center;
+    justify-content: space-evenly;
+    color: var(--Primary-font-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease;
+    cursor: pointer;
+    color: var(--Primary-font-color);
+}
+
+.side-bar .friends ul li .friend:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar .friends ul li .friend:active {
+    transform: scale(0.98);
+}
+
+.side-bar .friends ul li .friend i {
+    font-size: 4vh;
 }
 
 .side-bar .profile {
-    
+    border-top: 0.75vh solid var(--Primay-accent-color);
+    height: 17%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-bar .profile .user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--Highlight-background-color);
+    width: 85%;
+    border-radius: 1.14vh;
+    padding: 1vh;
+    color: var(--Primary-font-color);
+    border: none;
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar .profile .user i {
+    font-size: 4vh;
+}
+
+.side-bar nav {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1vh;
+}
+
+.side-bar nav button {
+    padding: 1vh;
+    background-color: var(--Inactive-background-color);
+    border-radius: 1.14vh;
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease;
+}
+
+.side-bar nav button:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar nav button:active {
+    transform: scale(0.9);
+}
+
+.side-bar nav a {
+    text-decoration: none;
+    color: var(--Primary-font-color);
+    background-color: var(--Inactive-background-color);
+    padding: 1vh;
+    border-radius: 1.14vh;
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);   
+    transition: 0.3s ease;
+}
+
+.side-bar nav a:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.side-bar nav a:active {
+    transform: scale(0.9);
+}
+
+main .top-bar {
+    border-bottom: 0.75vh solid var(--Primay-accent-color);
+    width: 160dvh;
+    height: 14.5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+main .top-bar .current-user {
+    margin-left: 5vh;
+    background-color: var(--Highlight-background-color);
+    padding: 1vh;
+    border-radius: 1.14vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 35vh;
+    color: var(--Primary-font-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+main .top-bar .current-user i {
+    font-size: 4vh;
+}
+
+main .top-bar .stats {
+    margin-left: 5vh;
+    background-color: var(--Highlight-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    padding: 1vh;
+    border-radius: 1.14vh;   
+}
+
+main .current-chat {
+    background-color: var(--Primary-background-color);
+    width: 160dvh;
+    height: 75vh;
+}
+
+main .current-chat ul {
+    margin-left: 2vh;
+}
+
+main .current-chat ul li {
+    list-style: none;
+}
+
+main .current-chat ul li .message {
+    display: flex;
+    flex-direction: row;
+    padding: 1vh;
+    border-radius: 1.14vh;
+    width: fit-content;
+    height: 10vh;
+    margin-top: 2vh;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+main .current-chat ul li .message i {
+    font-size: 4vh;
+    margin-right: 3vh;
+    margin-left: 1vh;
+    color: var(--Highlight-background-color);
+}
+
+main .current-chat ul li .message .information {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1vh;
+}
+
+main .current-chat ul li .message .information .user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    color: var(--Highlight-background-color);
+}
+
+main .current-chat ul li .message .information .message-text {
+    background-color: var(--Highlight-background-color);
+    padding: 1vh;
+    border-radius: 1.14vh;
+    height: fit-content;
+    width: fit-content;
+}
+
+main .message-actions {
+    background-color: var(--Primary-background-color);
+    border-top: 0.75vh solid var(--Primay-accent-color);
+    height: 8vh;
+    width: 160dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+main .message-actions .input-group {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin-left: -27.5vh;
+    margin-top: 1.5vh;
+}
+
+main .message-actions .input-group input {
+    width: 70vh;
+    height: 3vh;
+    padding: 1vh;
+    border-radius: 1.14vh;
+    border: none;
+    outline: none;
+    font-size: 2vh;
+    margin-right: 5vh;
+    background-color: var(--Inactive-background-color);
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease;
+}
+
+main .message-actions .input-group input:hover,
+main .message-actions .input-group input:focus {
+    outline: none;
+    border: none;
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+main .message-actions .input-group button {
+    padding: 1vh;
+    outline: none;
+    background-color: var(--Inactive-background-color);
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    border-radius: 1.14vh;
+    font-size: 2vh;
+    width: 20vh;
+    transition: 0.3s ease;
+}
+
+main .message-actions .input-group button:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+main .message-actions .input-group button:active {
+    transform: scale(0.9);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal .modal-content-wrapper{
+    margin-top: 30vh;
+    margin-left: 70vh;
+    background-color: var(--Highlight-background-color);
+    border-radius: 1.14vh;
+    padding: 1vh;
+    width: 60vh;
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.475vh solid var(--Secondary-accent-color);
+}
+
+.modal .modal-content-wrapper .modal-content {
+    background-color: var(--Primary-background-color);
+    height: 24vh;
+    width: 59vh;
+    border-radius: 0.6vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+}
+
+.modal .modal-content-wrapper .modal-content .content-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--Highlight-background-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-header i {
+    font-size: 4vh;
+}
+
+.modal .modal-content-wrapper .modal-content .content-header button {
+    border: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    background-color: var(--Inactive-background-color);
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    border-radius: 1.14vh;
+    transition: 0.3s ease;
+}
+
+.modal .modal-content-wrapper .modal-content .content-header button:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-header button:active {
+    transform: scale(0.9);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+}
+
+.modal .modal-content-wrapper .modal-content .content-content input {
+    margin-bottom: 2.5vh;
+    border: none;
+    outline: none;
+    background-color: var(--Inactive-background-color);
+    padding: 1vh;
+    font-size: 2.5vh;
+    border-radius: 1.14vh;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease;
+}
+
+.modal .modal-content-wrapper .modal-content .content-content input:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-content input:active,
+.modal .modal-content-wrapper .modal-content .content-content input:focus {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-content button {
+    font-size: 2vh;
+    padding: 1vh;
+    color: var(--Primary-font-color);
+    background-color: var(--Inactive-background-color);
+    border-radius: 1.14vh;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--Primay-accent-color);
+    transition: 0.3s ease;
+}
+
+.modal .modal-content-wrapper .modal-content .content-content button:hover {
+    background-color: var(--Highlight-background-color);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+}
+
+.modal .modal-content-wrapper .modal-content .content-content button:active {
+    transform: scale(0.9);
+    border-bottom: 2px solid var(--Secondary-accent-color);
+    background-color: var(--Highlight-background-color);
 }

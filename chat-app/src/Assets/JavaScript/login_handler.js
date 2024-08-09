@@ -181,7 +181,7 @@ async function signUp() {
     const birthdateInput = document.getElementById("birthdate_input").value;
 
     if (passwordInput !== repeatedPasswordInput) {
-        alert("Passwords do not match.");
+        showErrorToast("Passwords do not match.");
         return;
     }
 
@@ -219,14 +219,15 @@ async function signUp() {
                 // Success
                 console.log("Created account, and logged in");
                 sessionStorage.setItem("user_tag", user.user_tag);
+                sessionStorage.setItem("username", user.username);
                 window.location.href = "/chat-app/src/index.html";
             } else if (response.status === 400) {
                 // Bad request
-                alert("Error creating account.");
+                showErrorToast("Error creating account.");
                 throw new Error("Bad request.");
             } else if (response.status === 404) {
                 // Not found
-                alert("Error creating account");
+                showErrorToast("Error creating account");
                 throw new Error("API not found.");
             } else {
                 console.log("Response: " + response.status);
@@ -236,7 +237,7 @@ async function signUp() {
         }
 
     } else {
-        alert("Error, missing required fields!");
+        showErrorToast("Error, missing required fields!");
     }
 }
 
@@ -272,12 +273,13 @@ async function signIn() {
             console.log(user);
 
             sessionStorage.setItem("user_tag", user.user_tag);
+            sessionStorage.setItem("username", user.username);
             window.location.href = "/chat-app/src/index.html";
         } catch (error) {
             console.error("There was a problem signing in: ", error);
-            alert("Error signing in");
+            showErrorToast("Error signing in");
         }
     } else {
-        alert("Error, missing required fields!");
+        showErrorToast("Error, missing required fields!");
     }
 }
